@@ -1,0 +1,65 @@
+http://blog.csdn.net/slforeverlove/article/details/47722933
+
+mysql数据表中的主键(primary key)有如下几种约束：
+1、PRIMARY KEY 约束唯一标识数据库表中的每条记录。
+2、主键必须包含唯一的值。
+3、主键列不能包含 NULL 值。
+4、每个表都应该有一个主键，并且每个表只能有一个主键。
+
+在创建主键时，我们可以在创建表的同时创建主键，当然有时出于疏忽，建好表后才发现没有创建主键，这时可以补上。
+下面是在MYSQL控制台创建主键的两种方法。
+
+
+1、在创建表时一起创建主键，我们可以这样
+
+1
+mysql> CREATE TABLE `wb_blog` ( 
+2
+    ->   `id` smallint(8) unsigned NOT NULL , 
+3
+    ->   `catid` smallint(5) unsigned NOT NULL DEFAULT '0', 
+4
+    ->   `title` varchar(80) NOT NULL DEFAULT '', 
+5
+    ->   `content` text NOT NULL, 
+6
+    ->   PRIMARY KEY (`id`)#在这里为id字段加上主键 
+7
+    -> ) ;
+当然，你也可以这样创建PRIMARY KEY ，效果都一样
+
+1
+mysql> CREATE TABLE `wb_blog` ( 
+2
+    ->   `id` smallint(8) unsigned NOT NULL PRIMARY KEY,#在这里为id字段加上主键 
+3
+    ->   `catid` smallint(5) unsigned NOT NULL DEFAULT '0', 
+4
+    ->   `title` varchar(80) NOT NULL DEFAULT '', 
+5
+    ->   `content` text NOT NULL
+6
+    -> ) ;
+2、如果你创建表时，忘记为ID创建主键了如没有主键的表
+
+1
+mysql> CREATE TABLE `wb_blog` ( 
+2
+    ->   `id` smallint(8) unsigned NOT NULL , 
+3
+    ->   `catid` smallint(5) unsigned NOT NULL DEFAULT '0', 
+4
+    ->   `title` varchar(80) NOT NULL DEFAULT '', 
+5
+    ->   `content` text NOT NULL
+6
+    -> ) ;
+这时，你可以这样给补上主键
+1
+ALTER TABLE wb_blog ADD PRIMARY KEY ('id');
+mysql中数据表主键的撤销
+
+如给上面创建了主键的wb_blog表撤销PRIMARY KEY
+1
+ALTER TABLE wb_blog DROP PRIMARY KEY;
+
